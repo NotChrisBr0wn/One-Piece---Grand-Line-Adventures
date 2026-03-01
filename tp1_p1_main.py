@@ -6,7 +6,16 @@ from colorama import init, Fore, Style
 init(autoreset=True)
 
 def main():
-    meu_barco = Navio("Thousand Sunny")
+    print(Fore.CYAN + Style.BRIGHT + "\n" + "="*65)
+    print(Fore.YELLOW + Style.BRIGHT + " 🏴‍☠️   BEM-VINDO À GRANDE ERA DOS PIRATAS! 🏴‍☠️")
+    print(Fore.CYAN + Style.BRIGHT + "="*65)
+    
+    nome_do_barco = input(Fore.YELLOW + "⚓ Capitão, qual é o nome deste grande navio?: ")
+    
+    meu_barco = Navio(nome_do_barco)
+    
+    print(Fore.GREEN + f"\n{meu_barco.nome} é um nomme digno de navegar na Grand Line! Vamos zarpar.")
+    print(Fore.CYAN + "-"*65)
     
     luffy = Tripulante("Monkey D. Luffy", "Capitão", "Gomu Gomu no Mi", 1500000000.0, 100, 100)
     zoro = Tripulante("Roronoa Zoro", "Espadachim", "Nenhuma", 320000000.0, 95, 100)
