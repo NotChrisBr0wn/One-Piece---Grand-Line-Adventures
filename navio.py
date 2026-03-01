@@ -24,7 +24,7 @@ class Navio:
     def recrutar(self, novo_tripulante: Tripulante):
         # Adiciona um tripulante á lista de tripulação
         self._tripulacao.append(novo_tripulante)
-        print(Fore.GREEN + f"☠️ {novo_tripulante.nome} juntou-se á tripulação de {self.nome}.")
+        print(Fore.GREEN + f"☠️   {novo_tripulante.nome} juntou-se á tripulação de {self.nome}.")
     
     def expulsar(self, nome_tripulante: str):
         # Remove um tripulante da tripulação pelo nome
