@@ -47,7 +47,7 @@ class Navio:
     def mostrar_manifesto(self):
         print(Fore.WHITE + Style.BRIGHT + f"\n{'=' * 65}")
         print(Fore.CYAN + Style.BRIGHT + f"📜 Manifesto do Navio {self.nome.upper()}:")
-        print(Fore.YELLOW + f"💰 Recompensa Total: {self.recompensa_total()}B")
+        print(Fore.YELLOW + f"💰 Recompensa Total: {self.recompensa_total:,.2f}B")
         print(Fore.RED + f"⚔️ Poder Total: {self.calcular_poder_total()}")
         print(Fore.WHITE + Style.BRIGHT +f"={'=' * 65}")
 
@@ -56,23 +56,26 @@ class Navio:
         else:
             for pirata in self._tripulacao:
                 cor = Fore.WHITE
-                classe_lower = pirata.classe.lower()
 
-                if "capitão" in classe_lower or "capitao" in classe_lower:
+                if "capitão" in pirata.classe.lower() or "capitao" in pirata.classe.lower():
                     cor = Fore.RED + Style.BRIGHT
-                elif "espadachim" in classe_lower:
+                elif "espadachim" in pirata.classe.lower():
                     cor = Fore.GREEN + Style.BRIGHT
-                elif "atirador" in classe_lower:
+                elif "atirador" in pirata.classe.lower():
                     cor = Fore.BLUE + Style.BRIGHT
-                elif "navegador" in classe_lower:
+                elif "navegador" in pirata.classe.lower():
                     cor = Fore.CYAN + Style.BRIGHT
-                elif "cozinheiro" in classe_lower:
+                elif "cozinheiro" in pirata.classe.lower():
                     cor = Fore.YELLOW + Style.BRIGHT
-                elif "médico" in classe_lower or "medico" in classe_lower:
+                elif "médico" in pirata.classe.lower() or "medico" in pirata.classe.lower():
                     cor = Fore.MAGENTA + Style.BRIGHT
                 print(f"- {pirata}")
 
 
             blocos_cheios = int(pirata.energia / 10)
             blocos_vazios = 10 - blocos_cheios
-        print(f"{'=' * 65}\n")        
+            barra = (Fore.GREEN + "█" * blocos_cheios) + (Fore.LIGHTBLACK_EX + "░" * blocos_vazios)
+
+            print(f"🗡️ {cor}{pirata.nome:<17} {Fore.WHITE}| Classe: {pirata.classe:<12} | Fruta: {pirata.fruta:<15} | Recompensa: {pirata.recompensa:,.2f}B | Energia: [{barra}{Fore.WHITE}] {pirata.energia:3}% | Poder: {pirata.poder}")
+        
+        print(Fore.CYAN + Style.BRIGHT + f"{'='*65}\n")        
