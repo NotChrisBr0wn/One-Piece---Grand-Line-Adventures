@@ -1,5 +1,5 @@
 from tripulante import Tripulante
-from colorama import init, Fore, Style # type: ignore
+from colorama import init, Fore, Style 
 
 init(autoreset=True)
 
