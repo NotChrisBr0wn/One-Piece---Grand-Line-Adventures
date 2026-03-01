@@ -9,6 +9,8 @@ class Tripulante:
         self.energia = energia
         self.recompensa = recompensa
 
+    # Getters e Setters
+
     @property
     def nome(self):
         return self._nome
@@ -69,29 +71,29 @@ class Tripulante:
     # Métodos
 
     def trabalhar(self, tempo: int):
-        # Reduz a energia de acordo com o tempo
-        energia_gasta = tempo * 5
-        nova_energia = max(0, self.energia - energia_gasta)
-        self.energia = nova_energia
-        print(f"{self.nome} trabalhou por {tempo} horas e gastou {energia_gasta} de energia.")
+        # se está sem energia, não pode trabalhar
+        if self.energia == 0:
+            print(f"{self.nome} está muito cansado para trabalhar. Descanse primeiro.")
+            return
+        
+        # 1 hora de trabalho gasta 5 de energia
+        energia_necessaria = tempo * 5 # energia necessaria para trabalhar
+        energia_gasta = min(self.energia, energia_necessaria) # a energia gasta vai ser o mínimo entre a atual e a necessaria
+        self.energia -= energia_gasta
 
-    def descansar(self):
+        if energia_gasta < energia_necessaria:
+            print(f"{self.nome} trabalhou mais do que devia e acabou por desmaiar!")
+        else:
+            print(f"{self.nome} trabalhou por {tempo} horas e gastou {energia_gasta} de energia.")
+
+    def descansar(self): # Recupera toda a energia
         self.energia = 100
         print(f"{self.nome} descansou e recuperou toda a energia.")
 
+    # Retorna o objeto
     def __str__(self):
         return f"Nome: {self.nome} Classe: [{self.classe}] Fruta: {self.fruta} - Recompensa: {self.recompensa} Poder: {self.poder} Energia: {self.energia}"
 
 
-if __name__ == "__main__":
-    zoro = Tripulante("Zoro", "Espadachim", "N/A", 32000000, 95, 100)
-    print(zoro) # Testa o __str__
+
     
-    zoro.trabalhar(5) # Perde 25 de energia
-    print(f"Energia após trabalho: {zoro.energia}")
-    
-    zoro.trabalhar(20) # Tentaria perder 100, mas o max(0) prende no zero!
-    print(f"Energia após muito trabalho: {zoro.energia}")
-    
-    zoro.descansar()
-    print(f"Energia após descanso: {zoro.energia}")
