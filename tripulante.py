@@ -90,6 +90,14 @@ class Tripulante:
         self.energia = 100
         print(f"{self.nome} descansou e recuperou toda a energia.")
 
+    # Ordenação Personalizada
+    def __lt__(self, outro):
+        
+        if self.poder == outro.poder:
+            return self.recompensa < outro.recompensa
+        
+        return self.poder < outro.poder
+    
     # Retorna o objeto
     def __str__(self):
         return f"Nome: {self.nome} Classe: [{self.classe}] Fruta: {self.fruta} - Recompensa: {self.recompensa} Poder: {self.poder} Energia: {self.energia}"

@@ -44,6 +44,14 @@ class Navio:
             poder_total += pirata.poder
         return poder_total
     
+    def ordenar_tripulacao(self):
+        if not self._tripulacao:
+            print(Fore.YELLOW + "🚫 A tripulação está vazia. Nada para ordenar.")
+            return
+        
+        self._tripulacao.sort(reverse=True)
+        print(Fore.GREEN + "🔝 A tripulação foi ordenada por poder e recompensa com sucesso!")
+    
     def mostrar_manifesto(self):
         print(Fore.WHITE + Style.BRIGHT + f"\n{'=' * 65}")
         print(Fore.CYAN + Style.BRIGHT + f"📜 Manifesto do Navio {self.nome.upper()}:")

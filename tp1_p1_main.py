@@ -31,9 +31,10 @@ def main():
         print("2. 👞 Expulsar Tripulante")
         print("3. 📜 Mostrar Manifesto do Navio")
         print("4. ⚔️ Mostrar Poder Total da Tripulação")
-        print(Fore.RED + "5. ❌ Sair")
+        print("5. ✨ Ordenar Tripulação (Por Poder/Bounty)")
+        print(Fore.RED + "6. ❌ Sair")
         
-        opcao = input(Fore.YELLOW + "👉 Escolhe uma opção (1-5): ")
+        opcao = input(Fore.YELLOW + "👉 Escolhe uma opção (1-6): ")
         
         if opcao == "1":
             print(Fore.CYAN + "\n--- NOVO RECRUTA ---")
@@ -66,11 +67,15 @@ def main():
             print(Fore.MAGENTA + Style.BRIGHT + f"\n⚔️ O Poder de Combate Total da frota é: {poder_total}")
             
         elif opcao == "5":
+            meu_barco.ordenar_tripulacao()
+            input(Fore.YELLOW + "Pressiona Enter para ver o manifesto atualizado...")
+        
+        elif opcao == "6":
             print(Fore.GREEN + "\n⚓ A levantar âncora! Jogo terminado.")
-            break
+        
             
         else:
-            print(Fore.RED + "\n❌ Opção inválida! Escreve apenas um número de 1 a 5.")
+            print(Fore.RED + "\n❌ Opção inválida! Escreve apenas um número de 1 a 6.")
 
 if __name__ == "__main__":
     main()
