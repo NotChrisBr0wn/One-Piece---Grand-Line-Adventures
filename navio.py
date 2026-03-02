@@ -5,9 +5,11 @@ from colorama import init, Fore, Style
 init(autoreset=True)
 
 class Navio:
-    def __init__(self, nome: str):
+    def __init__(self, nome: str, vida:int, ouro: int):
         self._nome = nome
         self._tripulacao: list[Tripulante] = []
+        self.vida = 100
+        self.ouro = 0
    
     # Getters e propriedades    
     @property
@@ -20,6 +22,31 @@ class Navio:
         for pirata in self._tripulacao:
             total += pirata.recompensa
         return total
+    
+    @property
+    def vida(self):
+        return self._vida
+
+    @vida.setter
+    def vida(self, valor: int):
+        # Clamping
+        if valor > 100:
+            self._vida = 100
+        elif valor < 0:
+            self._vida = 0
+        else:
+            self._vida = valor
+
+    @property
+    def ouro(self):
+        return self._ouro
+
+    @ouro.setter
+    def ouro(self, valor: int):
+        if valor >= 0:
+            self._ouro = valor
+        else:
+            self._ouro = 0
     
     # Métodos de gestão de tripulação
     def recrutar(self, novo_tripulante: Tripulante):
@@ -38,6 +65,25 @@ class Navio:
         # se não houver ninguém com o nome
         print(Fore.YELLOW + f"❓ Não há nenhum tripulante chamado {nome_tripulante} neste navio.")
         return False # indica remoção falhada
+    
+    def reparar(self, quantidade: int):
+        # Recupera a vida do navio
+        self.vida += quantidade 
+        print(Fore.GREEN + f"🛠️ O {self.nome} foi reparado em {quantidade}! Vida atual: {self.vida}/100")
+
+    def danificar(self, quantidade: int):
+        # DISPARAR CANHOESSSSS!!!
+        self.vida -= quantidade 
+        print(Fore.RED + f"💥 BOOM! O navio sofreu {quantidade} de dano! Vida atual: {self.vida}/100")
+        
+        if self.vida == 0:
+            print(Fore.RED + Style.BRIGHT + f"\n☠️ GAME OVER! O {self.nome} afundou-se nas profundezas do oceano! ☠️")
+            # Aqui depois podes meter um código para terminar o jogo se quiseres!
+
+    def ganhar_ouro(self, quantidade: int):
+        # Adiciona o money do navio
+        self.ouro += quantidade
+        print(Fore.YELLOW + f"🪙 BINGO! Ganhaste {quantidade} B Tesouro total: {self.ouro}B")
     
     def calcular_poder_total(self): # calcula o poder total
         poder_total = 0
