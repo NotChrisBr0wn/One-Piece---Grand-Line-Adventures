@@ -79,10 +79,9 @@ class Navio:
                     cor = Fore.MAGENTA + Style.BRIGHT
 
 
-            blocos_cheios = int(pirata.energia / 10)
-            blocos_vazios = 10 - blocos_cheios
-            barra = (Fore.GREEN + "█" * blocos_cheios) + (Fore.LIGHTBLACK_EX + "░" * blocos_vazios)
-
-            print(f"🗡️   {cor}{pirata.nome} {Fore.WHITE} | Classe: {pirata.classe} | Fruta: {pirata.fruta} | Recompensa: {pirata.recompensa:,.2f}B | Energia: [{barra}{Fore.WHITE}] {pirata.energia:3}% | Poder: {pirata.poder}")
+                blocos_cheios = int(pirata.energia / 10)
+                blocos_vazios = 10 - blocos_cheios
+                barra = (Fore.GREEN + "█" * blocos_cheios) + (Fore.LIGHTBLACK_EX + "░" * blocos_vazios)
+                print(f"🗡️   {cor}{pirata.nome} {Fore.WHITE} | Classe: {pirata.classe} | Fruta: {pirata.fruta} | Recompensa: {pirata.recompensa:,.2f}B | Energia: [{barra}{Fore.WHITE}] {pirata.energia:3}% | Poder: {pirata.poder}")
         
         print(Fore.CYAN + Style.BRIGHT + f"{'='*65}\n")        
