@@ -2,6 +2,7 @@
 from tripulante import Tripulante
 from navio import Navio
 from colorama import init, Fore, Style
+from tp1_p2_main import Simulacao
 
 init(autoreset=True)
 
@@ -35,8 +36,9 @@ def main():
         print("6. 💾 Guardar Jogo")
         print("7. 📂 Carregar Jogo")
         print(Fore.RED + "8. ❌ Sair")
+        print(Fore.GREEN + "9. 🚢 Zarpar para a Aventura na Grand Line!")
         
-        opcao = input(Fore.YELLOW + "👉 Escolhe uma opção (1-8): ")
+        opcao = input(Fore.YELLOW + "👉 Escolhe uma opção (1-9): ")
         
         if opcao == "1":
             print(Fore.CYAN + "\n--- NOVO RECRUTA ---")
@@ -83,9 +85,31 @@ def main():
         elif opcao == "8":
             print(Fore.GREEN + "\n⚓ A levantar âncora! Jogo terminado.")
             break
+        
+        elif opcao == "9":
+            if not meu_barco.tripulacao:
+                print(Fore.RED + "❌ Não podes zarpar sem tripulação!")
+                continue
             
+            import pygame
+            
+            pygame.mixer.init()
+            pygame.mixer.music.load("ost.mp3")
+            
+            pygame.mixer.music.set_volume(0.1) 
+            
+            print(Fore.CYAN + "\n🎶 A tocar: Tema da Grand Line (10% volume)...")
+            pygame.mixer.music.play(-1)
+            
+            # Inicia a simulação da parte 2
+            simulador = Simulacao(meu_barco)
+            simulador.jogar()
+            
+            # Parar musica quando acabar a simulação
+            pygame.mixer.music.stop()
+            print(Fore.GREEN + "\n⚓ Regressaste ao porto seguro.")
         else:
-            print(Fore.RED + "\n❌ Opção inválida! Escreve apenas um número de 1 a 6.")
+            print(Fore.RED + "\n❌ Opção inválida! Escreve apenas um número de 1 a 9.")
 
 if __name__ == "__main__":
     main()
