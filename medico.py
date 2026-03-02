@@ -18,3 +18,18 @@ class Medico(Tripulante):
 
     def __str__(self):
         return f"{super().__str__()} | Pacientes Curados: {self.pacientes_curados}"
+    
+    def executar_acao(self, navio):
+        if not navio._tripulacao:
+            print(f"🩺 {self.nome} tem as ligaduras prontas, mas não há ninguém no navio para curar!")
+            return
+
+        # 
+        paciente = min(navio._tripulacao, key=lambda p: p.energia)
+        
+        nova_energia = paciente.energia + 40
+        paciente.energia = min(100, nova_energia)
+        
+        self.pacientes_curados += 1
+        print(f"💉 {self.nome} encontrou {paciente.nome} ferido e tratou-o!")
+        print(f"❤️ A energia de {paciente.nome} subiu para {paciente.energia}%. (Pacientes curados: {self.pacientes_curados})")

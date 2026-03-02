@@ -18,3 +18,8 @@ class Navegador(Tripulante):
 
     def __str__(self):
         return f"{super().__str__()} | Milhas: {self.milhas_navegadas}"
+    
+    def executar_acao(self, navio):
+        self.milhas_navegadas += 50
+        print(f"🧭 {self.nome} analisou o clima e traçou uma rota segura para o {navio.nome}.")
+        print(f"🗺️ O navio avançou 50 milhas! (Total: {self.milhas_navegadas} milhas)")

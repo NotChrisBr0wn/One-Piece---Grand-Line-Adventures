@@ -22,4 +22,10 @@ class Espadachim(Tripulante):
         return f"{base} | Espadas: {nomes_espadas}"
     
     def executar_acao(self, navio):
-        print(f"⚔️ {self.nome} está a treinar intensamente com as suas espadas.")
+        bonus = 10 * len(self.espadas)
+        
+        novo_poder = self.poder + bonus
+        self.poder = min(100, novo_poder) 
+        
+        print(f"⚔️ {self.nome} executa um ataque devastador com as suas {len(self.espadas)} espadas!")
+        print(f"💪 O poder de combate de {self.nome} subiu para {self.poder}.")

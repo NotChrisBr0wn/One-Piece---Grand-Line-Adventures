@@ -20,8 +20,14 @@ class Cozinheiro(Tripulante):
         return f"{super().__str__()} | Refeições Preparadas: {self.refeicoes_preparadas}"
     
     def executar_acao(self, navio):
+        if not navio._tripulacao:
+            print(f"🍳 {self.nome} fez um banquete épico, mas não há ninguém para comer!")
+            return
+            
+        for pirata in navio._tripulacao:
+            nova_energia = pirata.energia + 20
+            pirata.energia = min(100, nova_energia)
+            
         self.refeicoes_preparadas += 1
-        if self.refeicoes_preparadas == 1:
-            print(f"🍳 {self.nome} preparou a primeira refeição! Que delícia!")
-        else:
-            print(f"🍳 {self.nome} preparou um banquete! Já cozinhou {self.refeicoes_preparadas} refeições divinais")
+        print(f"🍖 {self.nome} preparou o seu famoso curry especial!")
+        print(f"✨ Toda a tripulação do {navio.nome} recuperou 20% de energia. (Refeições divinas servidas: {self.refeicoes_preparadas})")
