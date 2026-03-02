@@ -72,7 +72,7 @@ def main():
         
         elif opcao == "6":
             print(Fore.GREEN + "\n⚓ A levantar âncora! Jogo terminado.")
-        
+            break
             
         else:
             print(Fore.RED + "\n❌ Opção inválida! Escreve apenas um número de 1 a 6.")
