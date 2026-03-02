@@ -101,6 +101,29 @@ class Tripulante:
     # Retorna o objeto
     def __str__(self):
         return f"Nome: {self.nome} Classe: [{self.classe}] Fruta: {self.fruta} - Recompensa: {self.recompensa} Poder: {self.poder} Energia: {self.energia}"
+    
+    def to_dict(self):
+        # Converter o objeto num dicionário
+        return {
+            "nome": self.nome,
+            "classe": self.classe,
+            "fruta": self.fruta,
+            "recompensa": self.recompensa,
+            "poder": self.poder,
+            "energia": self.energia
+        }
+
+    @classmethod
+    def from_dict(cls, dados: dict):
+        # criar tripulante a partir de um dicionário
+        return cls(
+            nome=dados["nome"],
+            classe=dados["classe"],
+            fruta=dados["fruta"],
+            recompensa=dados["recompensa"],
+            poder=dados["poder"],
+            energia=dados["energia"]
+        )
 
 
 

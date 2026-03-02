@@ -32,9 +32,11 @@ def main():
         print("3. 📜 Mostrar Manifesto do Navio")
         print("4. ⚔️ Mostrar Poder Total da Tripulação")
         print("5. ✨ Ordenar Tripulação (Por Poder/Bounty)")
-        print(Fore.RED + "6. ❌ Sair")
+        print("6. 💾 Guardar Jogo")
+        print("7. 📂 Carregar Jogo")
+        print(Fore.RED + "8. ❌ Sair")
         
-        opcao = input(Fore.YELLOW + "👉 Escolhe uma opção (1-6): ")
+        opcao = input(Fore.YELLOW + "👉 Escolhe uma opção (1-8): ")
         
         if opcao == "1":
             print(Fore.CYAN + "\n--- NOVO RECRUTA ---")
@@ -71,6 +73,14 @@ def main():
             input(Fore.YELLOW + "Pressiona Enter para ver o manifesto atualizado...")
         
         elif opcao == "6":
+            meu_barco.guardar_jogo()
+            input(Fore.GREEN + "💾 Jogo guardado com sucesso! Pressione ENTER para voltar ao menu... ")
+            
+        elif opcao == "7":
+            meu_barco.carregar_jogo()
+            input(Fore.GREEN + "📂 Jogo carregado com sucesso! Pressione ENTER para voltar ao menu... ")
+            
+        elif opcao == "8":
             print(Fore.GREEN + "\n⚓ A levantar âncora! Jogo terminado.")
             break
             

@@ -1,3 +1,4 @@
+import json
 from tripulante import Tripulante
 from colorama import init, Fore, Style 
 
@@ -83,5 +84,28 @@ class Navio:
                 blocos_vazios = 10 - blocos_cheios
                 barra = (Fore.GREEN + "█" * blocos_cheios) + (Fore.LIGHTBLACK_EX + "░" * blocos_vazios)
                 print(f"🗡️   {cor}{pirata.nome} {Fore.WHITE} | Classe: {pirata.classe} | Fruta: {pirata.fruta} | Recompensa: {pirata.recompensa:,.2f}B | Energia: [{barra}{Fore.WHITE}] {pirata.energia:3}% | Poder: {pirata.poder}")
+    
+    def guardar_jogo(self, ficheiro="save_navio.json"):
+        # Guarda a trip num ficheiro JSON
+        dados = [pirata.to_dict() for pirata in self._tripulacao]
         
-        print(Fore.CYAN + Style.BRIGHT + f"{'='*65}\n")        
+        with open(ficheiro, "w", encoding="utf-8") as f:
+            json.dump(dados, f, indent=4, ensure_ascii=False)
+            
+        print(Fore.BLUE + Style.BRIGHT + f"💾 Jogo guardado com sucesso em '{ficheiro}'!")
+
+    def carregar_jogo(self, ficheiro="save_navio.json"):
+        # Carrega a trip
+        try:
+            with open(ficheiro, "r", encoding="utf-8") as f:
+                dados = json.load(f)
+                
+            self._tripulacao.clear() # Da clear do navio atual
+            for d in dados:
+                self._tripulacao.append(Tripulante.from_dict(d))
+                
+            print(Fore.BLUE + Style.BRIGHT + f"📂 Jogo carregado com sucesso! Bem-vindo de volta.")
+        except FileNotFoundError:
+            print(Fore.RED + f"❌ Ficheiro '{ficheiro}' não encontrado. O oceano engoliu o teu save!")
+                
+    print(Fore.CYAN + Style.BRIGHT + f"{'='*65}\n")        
