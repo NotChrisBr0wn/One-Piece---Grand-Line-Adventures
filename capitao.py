@@ -1,8 +1,8 @@
 from tripulante import Tripulante
 
 class Capitao(Tripulante):
-    def __init__(self, nome: str, fruta: str, recompensa: float, poder: int, energia: int = 100, status: str = "Ok", haki_lvl: int = 0):
-        super().__init__(nome, fruta, recompensa, poder, energia, status)
+    def __init__(self, nome: str, recompensa: float, poder: int, fruta: str,  energia: int = 100, status: str = "Ok", haki_lvl: int = 0):
+        super().__init__(nome, recompensa, poder, fruta, energia, status)
         self.haki_lvl = haki_lvl
 
     @property

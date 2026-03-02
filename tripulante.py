@@ -1,12 +1,12 @@
 # Vamos ver se sai daqui o melhor jogo de one piece (via texto :P)
 
 class Tripulante:
-    def __init__ (self, nome:str,fruta:str,recompensa:float,poder:int,energia:int = 100, status:str = "Ok"):
+    def __init__ (self, nome:str, recompensa:float, poder:int, fruta:str = "Nenhuma", energia:int = 100, status:str = "Ok"):
         self.nome = nome
-        self.fruta = fruta
-        self.poder = poder
-        self.energia = energia
         self.recompensa = recompensa
+        self.poder = poder
+        self.fruta = fruta
+        self.energia = energia
         self.status = status
 
     # Getters e Setters

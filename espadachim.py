@@ -1,7 +1,7 @@
 from tripulante import Tripulante
 
 class Espadachim(Tripulante):
-    def __init__(self, nome: str, fruta: str, recompensa: float, poder: int, energia: int = 100, status: str = "Ok", espadas: list = None):
+    def __init__(self, nome: str, recompensa: float, poder: int, fruta: str,  energia: int = 100, status: str = "Ok", espadas: list = None):
         super().__init__(nome, fruta, recompensa, poder, energia, status)
         self.espadas = espadas if espadas is not None else []
 

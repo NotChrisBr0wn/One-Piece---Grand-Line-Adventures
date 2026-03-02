@@ -1,7 +1,7 @@
 from tripulante import Tripulante
 
 class Navegador(Tripulante):
-    def __init__(self, nome: str, fruta: str, recompensa: float, poder: int, energia: int = 100, status: str = "Ok", milhas_navegadas: int = 0):
+    def __init__(self, nome: str, recompensa: float, poder: int, fruta: str,  energia: int = 100, status: str = "Ok", milhas_navegadas: int = 0):
         super().__init__(nome, fruta, recompensa, poder, energia, status)
         self.milhas_navegadas = milhas_navegadas
 
