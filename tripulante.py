@@ -1,13 +1,13 @@
 # Vamos ver se sai daqui o melhor jogo de one piece (via texto :P)
 
 class Tripulante:
-    def __init__ (self, nome:str,classe:str,fruta:str,recompensa:float,poder:int,energia:int = 100):
+    def __init__ (self, nome:str,fruta:str,recompensa:float,poder:int,energia:int = 100, status:str = "Ok"):
         self.nome = nome
-        self.classe = classe
         self.fruta = fruta
         self.poder = poder
         self.energia = energia
         self.recompensa = recompensa
+        self.status = status
 
     # Getters e Setters
 
@@ -18,14 +18,6 @@ class Tripulante:
     @nome.setter
     def nome(self, valor: str):
         self._nome = valor
-
-    @property
-    def classe(self):
-        return self._classe
-    
-    @classe.setter
-    def classe(self, valor: str):
-        self._classe = valor
 
     @property
     def fruta(self):
@@ -89,6 +81,9 @@ class Tripulante:
     def descansar(self): # Recupera toda a energia
         self.energia = 100
         print(f"{self.nome} descansou e recuperou toda a energia.")
+    
+    def executar_acao(self, navio):
+        print(f"{self.nome} olha para os lados e não sabe o que fazer...")
 
     # Ordenação Personalizada
     def __lt__(self, outro):
@@ -100,17 +95,17 @@ class Tripulante:
     
     # Retorna o objeto
     def __str__(self):
-        return f"Nome: {self.nome} Classe: [{self.classe}] Fruta: {self.fruta} - Recompensa: {self.recompensa} Poder: {self.poder} Energia: {self.energia}"
+        return f"Nome: {self.nome} Classe: [{type(self).__name__}] Fruta: {self.fruta} - Recompensa: {self.recompensa} Poder: {self.poder} Energia: {self.energia} Status: {self.status}"
     
     def to_dict(self):
         # Converter o objeto num dicionário
         return {
             "nome": self.nome,
-            "classe": self.classe,
             "fruta": self.fruta,
             "recompensa": self.recompensa,
             "poder": self.poder,
-            "energia": self.energia
+            "energia": self.energia,
+            "status": self.status
         }
 
     @classmethod
@@ -118,11 +113,11 @@ class Tripulante:
         # criar tripulante a partir de um dicionário
         return cls(
             nome=dados["nome"],
-            classe=dados["classe"],
             fruta=dados["fruta"],
             recompensa=dados["recompensa"],
             poder=dados["poder"],
-            energia=dados["energia"]
+            energia=dados["energia"],
+            status=dados.get("status", "Ok"), 
         )
 
 
