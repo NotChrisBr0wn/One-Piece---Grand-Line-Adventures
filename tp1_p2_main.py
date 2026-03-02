@@ -80,6 +80,10 @@ class Simulacao:
                "O canto das sereias está a atrair o navio para as rochas!",
                dano_vida=25, dano_energia=10, recompensa=200,
                tipo_ideal="Medico"), # Médico/Músico resiste mentalmente? Vamos assumir Médico por agora.
+        Evento("👑 Prova de Liderança", 
+               "Um bando rival desafia a autoridade do navio!", 
+               dano_vida=20, dano_energia=15, recompensa=800, 
+               tipo_ideal="Capitao"),
     ]
 
     MAX_TURNOS = 10
