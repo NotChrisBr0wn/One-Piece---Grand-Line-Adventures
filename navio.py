@@ -5,11 +5,12 @@ from colorama import init, Fore, Style
 init(autoreset=True)
 
 class Navio:
-    def __init__(self, nome: str, vida:int, ouro: int):
+    def __init__(self, nome: str, vida:int = 100, ouro: int = 0):
         self._nome = nome
+        self.vida = vida
+        self.ouro = ouro
         self._tripulacao: list[Tripulante] = []
-        self.vida = 100
-        self.ouro = 0
+        
    
     # Getters e propriedades    
     @property
@@ -47,6 +48,11 @@ class Navio:
             self._ouro = valor
         else:
             self._ouro = 0
+            
+    @property
+    def tripulacao(self):
+        # permite que a simulacao aceda a tripulacao
+        return self._tripulacao
     
     # Métodos de gestão de tripulação
     def recrutar(self, novo_tripulante: Tripulante):
@@ -101,8 +107,8 @@ class Navio:
     
     def mostrar_manifesto(self):
         print(Fore.WHITE + Style.BRIGHT + f"\n{'=' * 65}")
-        print(Fore.CYAN + Style.BRIGHT + f"📜 Manifesto do Navio {self.nome.upper()}:")
-        print(Fore.YELLOW + f"💰 Recompensa Total: {self.recompensa_total:,.2f}B")
+        print(f"Manifesto do Navio: {self.nome}") 
+        print(f"❤️ Vida: {self.vida} | 💰 Ouro: {self.ouro}")
         print(Fore.RED + f"⚔️ Poder Total: {self.calcular_poder_total()}")
         print(Fore.WHITE + Style.BRIGHT +f"={'=' * 65}")
 
@@ -110,26 +116,23 @@ class Navio:
             print(Fore.YELLOW + "🚫 A tripulação está vazia.")
         else:
             for pirata in self._tripulacao:
-                cor = Fore.WHITE
+                classe_nome = type(pirata).__name__
 
-                if "capitão" in pirata.classe.lower() or "capitao" in pirata.classe.lower():
+                if classe_nome == "Capitao":
                     cor = Fore.RED + Style.BRIGHT
-                elif "espadachim" in pirata.classe.lower():
-                    cor = Fore.GREEN + Style.BRIGHT
-                elif "atirador" in pirata.classe.lower():
-                    cor = Fore.BLUE + Style.BRIGHT
-                elif "navegador" in pirata.classe.lower():
-                    cor = Fore.CYAN + Style.BRIGHT
-                elif "cozinheiro" in pirata.classe.lower():
-                    cor = Fore.YELLOW + Style.BRIGHT
-                elif "médico" in pirata.classe.lower() or "medico" in pirata.classe.lower():
-                    cor = Fore.MAGENTA + Style.BRIGHT
+                elif classe_nome == "Espadachim":
+                    cor = Fore.GREEN
+                elif classe_nome == "Navegador":
+                    cor = Fore.BLUE
+                elif classe_nome == "Cozinheiro":
+                    cor = Fore.BLACK + Style.BRIGHT
+                elif classe_nome == "Médico":
+                    cor = Fore.YELLOW
+                else:
+                    cor = Fore.WHITE
 
-
-                blocos_cheios = int(pirata.energia / 10)
-                blocos_vazios = 10 - blocos_cheios
-                barra = (Fore.GREEN + "█" * blocos_cheios) + (Fore.LIGHTBLACK_EX + "░" * blocos_vazios)
-                print(f"🗡️   {cor}{pirata.nome} {Fore.WHITE} | Classe: {pirata.classe} | Fruta: {pirata.fruta} | Recompensa: {pirata.recompensa:,.2f}B | Energia: [{barra}{Fore.WHITE}] {pirata.energia:3}% | Poder: {pirata.poder}")
+                print(cor + str(pirata))
+        print(Fore.CYAN + "-" * 65 + "\n")
     
     def guardar_jogo(self, ficheiro="save_navio.json"):
         # Guarda a trip num ficheiro JSON

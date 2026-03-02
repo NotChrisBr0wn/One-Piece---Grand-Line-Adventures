@@ -1,7 +1,7 @@
 from tripulante import Tripulante
 
 class Medico(Tripulante):
-    def __init__(self, nome: str, recompensa: float, poder: int, fruta: str = "Nenhuma",  energia: int = 100, status: str = "Ok", pacientes_curados: int = 0):
+    def __init__(self, nome: str, recompensa:float = 0.0, poder:int = 0, fruta: str = "Nenhuma",  energia: int = 100, status: str = "Ok", pacientes_curados: int = 0):
         super().__init__(nome, recompensa, poder, fruta, energia, status)
         self.pacientes_curados = pacientes_curados
 

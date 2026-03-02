@@ -1,7 +1,7 @@
 # Vamos ver se sai daqui o melhor jogo de one piece (via texto :P)
 
 class Tripulante:
-    def __init__ (self, nome:str, recompensa:float, poder:int, fruta:str = "Nenhuma", energia:int = 100, status:str = "Ok"):
+    def __init__ (self, nome:str, recompensa:float = 0.0, poder:int = 0, fruta:str = "Nenhuma", energia:int = 100, status:str = "Ok"):
         self.nome = nome
         self.recompensa = recompensa
         self.poder = poder
@@ -95,15 +95,15 @@ class Tripulante:
     
     # Retorna o objeto
     def __str__(self):
-        return f"Nome: {self.nome} Classe: [{type(self).__name__}] Fruta: {self.fruta} - Recompensa: {self.recompensa} Poder: {self.poder} Energia: {self.energia} Status: {self.status}"
+        return f"Nome: {self.nome} Classe: [{type(self).__name__}] Recompensa: {self.recompensa} Poder: {self.poder} Fruta: {self.fruta} Energia: {self.energia} Status: {self.status}"
     
     def to_dict(self):
         # Converter o objeto num dicionário
         return {
             "nome": self.nome,
-            "fruta": self.fruta,
             "recompensa": self.recompensa,
             "poder": self.poder,
+            "fruta": self.fruta,
             "energia": self.energia,
             "status": self.status
         }
@@ -113,9 +113,9 @@ class Tripulante:
         # criar tripulante a partir de um dicionário
         return cls(
             nome=dados["nome"],
-            fruta=dados["fruta"],
             recompensa=dados["recompensa"],
             poder=dados["poder"],
+            fruta=dados["fruta"],
             energia=dados["energia"],
             status=dados.get("status", "Ok"), 
         )

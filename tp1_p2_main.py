@@ -17,6 +17,8 @@ Execute com: uv run tp1_p2_main.py
 import random
 import sys
 import time
+import pygame
+from colorama import init, Fore, Style
 
 from navio import Navio
 from tripulante import Tripulante
@@ -24,7 +26,9 @@ from espadachim import Espadachim
 from navegador import Navegador
 from medico import Medico
 from cozinheiro import Cozinheiro
+from capitao import Capitao
 
+init(autoreset=True)
 
 class Evento:
     """Representa um evento aleatório que ocorre durante a aventura."""
@@ -50,7 +54,7 @@ class Evento:
 
 class Simulacao:
     """Motor principal do jogo Grand Line Adventures."""
-
+    
     EVENTOS = [
         Evento("🦑 Kraken",
                "Um monstro gigante surge do abismo!",
@@ -92,6 +96,14 @@ class Simulacao:
         self.navio = navio
         self.turno_atual = 0
         self.em_jogo = True
+        
+        try:
+            pygame.mixer.init()
+            pygame.mixer.music.load("ost.mp3")
+            pygame.mixer.music.set_volume(0.1)
+            pygame.mixer.music.play(-1)
+        except Exception as e:
+            print(Fore.RED + f"⚠️ Erro ao carregar música: {e}")
 
     def _imprimir_lento(self, texto, delay=0.01):
         """Imprime texto com um pequeno delay para efeito dramático (opcional)."""
@@ -140,27 +152,27 @@ class Simulacao:
         sucesso = (type(tripulante).__name__ == evento.tipo_ideal)
 
         if sucesso:
-            self._imprimir_lento(f"  ✅ SUCESSO! {tripulante.nome} sabia exatamente o que fazer.")
+            self._imprimir_lento(Fore.GREEN + f"  ✅ SUCESSO! {tripulante.nome} sabia exatamente o que fazer.")
             ganho = evento.recompensa
             if ganho > 0:
-                print(f"  💰 Tesouro obtido: {ganho} berry!")
+                print(Fore.YELLOW + f"  💰 Tesouro obtido: {ganho} berry!")
                 self.navio.ganhar_ouro(ganho)
             else:
                 print("  O navio está seguro... por agora.")
         else:
-            self._imprimir_lento(f"  ❌ FALHA! {tripulante.nome} tentou, mas não era a pessoa certa...")
+            self._imprimir_lento(Fore.RED + f"  ❌ FALHA! {tripulante.nome} tentou, mas não era a pessoa certa...")
             print(f"  💥 O navio sofre {evento.dano_vida} de dano!")
             self.navio.danificar(evento.dano_vida)
             
             if evento.dano_energia > 0:
-                print(f"  😓 A tripulação perde {evento.dano_energia} de energia.")
+                print(Fore.RED + f"  😓 A tripulação perde {evento.dano_energia} de energia.")
                 for t in self.navio.tripulacao:
                     t.trabalhar(evento.dano_energia / 5) # Conversão aproximada
 
     def jogar(self):
         print("\n\n")
-        print("  🏴‍☠️  ONE PIECE: GRAND LINE ADVENTURES (PARTE 2) 🏴‍☠️")
-        print("  Sobrevivam à Grand Line e acumulem o maior tesouro!")
+        print(Fore.RED + Style.BRIGHT + "  🏴‍☠️  ONE PIECE: GRAND LINE ADVENTURES (PARTE 2) 🏴‍☠️")
+        print(Fore.BLUE + Style.BRIGHT + "  Sobrevivam à Grand Line e acumulem o maior tesouro!")
         print("\n")
 
         for i in range(1, self.MAX_TURNOS + 1):
@@ -170,7 +182,7 @@ class Simulacao:
 
             # Verificar Game Over antes do turno
             if self.navio.vida <= 0:
-                print("  💀 O navio foi destruído! Game Over.")
+                print(Fore.RED + Style.BRIGHT + "  💀 O navio foi destruído! Game Over.")
                 break
             
             # Sorteio do Evento
@@ -181,7 +193,7 @@ class Simulacao:
 
             tripulante = self._escolher_tripulante()
             if not tripulante:
-                print("  💤 Toda a tripulação está exausta! O navio fica à deriva...")
+                print(Fore.YELLOW + "  💤 Toda a tripulação está exausta! O navio fica à deriva...")
                 self.navio.danificar(evento.dano_vida)
                 continue
 
@@ -200,15 +212,16 @@ class Simulacao:
         self.navio.mostrar_manifesto()
         
         if self.navio.vida > 0:
-            print("\n  🎉 PARABÉNS! Chegaram ao fim da rota.")
+            print(Fore.GREEN + "\n  🎉 PARABÉNS! Chegaram ao fim da rota.")
             score = self.navio.ouro + (self.navio.vida * 10)
-            print(f"  🏆 Pontuação Final: {score}")
+            print(Fore.YELLOW + f"  🏆 Pontuação Final: {score}")
         else:
-            print("\n  💀 A vossa aventura acabou no fundo do mar.")
+            print(Fore.RED + "\n  💀 A vossa aventura acabou no fundo do mar.")
 
 
 def criar_tripulacao():
     return [
+        Capitao("Luffy", recompensa=500.0, poder=95),
         Espadachim("Zoro", recompensa=320.0, poder=90, espadas=["Wado", "Enma"]),
         Navegador("Nami", recompensa=66.0, poder=40, milhas_navegadas=1000),
         Medico("Chopper", recompensa=0.1, poder=30, pacientes_curados=50),
