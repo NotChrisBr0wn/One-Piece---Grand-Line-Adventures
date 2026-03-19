@@ -221,7 +221,7 @@ class Simulacao:
 
 def criar_tripulacao():
     return [
-        Capitao("Luffy", recompensa=500.0, poder=95),
+        Capitao("Luffy", fruta = "Gomu Gomu no Mi", recompensa=500.0, poder=95),
         Espadachim("Zoro", recompensa=320.0, poder=90, espadas=["Wado", "Enma"]),
         Navegador("Nami", recompensa=66.0, poder=40, milhas_navegadas=1000),
         Medico("Chopper", recompensa=0.1, poder=30, pacientes_curados=50),
