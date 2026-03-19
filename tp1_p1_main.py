@@ -3,6 +3,11 @@ from tripulante import Tripulante
 from navio import Navio
 from colorama import init, Fore, Style
 from tp1_p2_main import Simulacao
+from capitao import Capitao
+from espadachim import Espadachim
+from navegador import Navegador
+from medico import Medico
+from cozinheiro import Cozinheiro
 
 init(autoreset=True)
 
@@ -15,11 +20,11 @@ def main():
     
     meu_barco = Navio(nome_do_barco)
     
-    print(Fore.GREEN + f"\n{meu_barco.nome} é um nomme digno de navegar na Grand Line! Vamos zarpar.")
+    print(Fore.GREEN + f"\n{meu_barco.nome} é um nome digno de navegar na Grand Line! Vamos zarpar.")
     print(Fore.CYAN + "-"*65)
     
-    luffy = Tripulante("Monkey D. Luffy", "Capitão", "Gomu Gomu no Mi", 1500000000.0, 100, 100)
-    zoro = Tripulante("Roronoa Zoro", "Espadachim", "Nenhuma", 320000000.0, 95, 100)
+    luffy = Capitao("Monkey D. Luffy", recompensa=1500000000.0, poder=100, fruta="Gomu Gomu no Mi", energia=100)
+    zoro = Espadachim("Roronoa Zoro", recompensa=320000000.0, poder=95, fruta="Nenhuma", energia=100, espadas=["Wado Ichimonji", "Enma", "Sandai Kitetsu"])
     
     meu_barco.recrutar(luffy)
     meu_barco.recrutar(zoro)
@@ -51,7 +56,27 @@ def main():
                 poder = int(input("Poder de Combate (0-100): "))
                 energia = int(input("Energia (0-100): "))
                 
-                novo_pirata = Tripulante(nome, funcao, fruta, recompensa, poder, energia)
+                funcao= funcao.strip().lower()
+
+                if funcao in {"capitao", "capitão"}:
+                    novo_pirata = Capitao(nome, recompensa=recompensa, poder=poder, fruta=fruta, energia=energia)
+                elif funcao in {"espadachim", "espadachin", "espadachim(a)"}:
+                    novo_pirata = Espadachim(nome, recompensa=recompensa, poder=poder, fruta=fruta, energia=energia)
+                elif funcao in {"navegador", "navegadora"}:
+                    novo_pirata = Navegador(nome, recompensa=recompensa, poder=poder, fruta=fruta, energia=energia)
+                elif funcao in {"medico", "médico", "medica", "médica"}:
+                    novo_pirata = Medico(nome, recompensa=recompensa, poder=poder, fruta=fruta, energia=energia)
+                elif funcao in {"cozinheiro", "cozinheira"}:
+                    novo_pirata = Cozinheiro(nome, recompensa=recompensa, poder=poder, fruta=fruta, energia=energia)
+                else:
+                    print(Fore.YELLOW + "Função não reconhecida. Será criado como Tripulante base.")
+                    novo_pirata = Tripulante(
+                        nome,
+                        recompensa=recompensa,
+                        poder=poder,
+                        fruta=fruta,
+                        energia=energia,
+                    )
                 meu_barco.recrutar(novo_pirata)
                 
             except ValueError as erro:

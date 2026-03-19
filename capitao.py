@@ -20,7 +20,7 @@ class Capitao(Tripulante):
         return f"{super().__str__()} | Nível de Haki: {self.haki_lvl}"
     
     def executar_acao(self, navio):
-        if self.nivel_haki > 50:
+        if self.haki_lvl > 50:
             print(f"👑 {self.nome} usou Haki do Rei Supremo! Metade dos inimigos desmaiaram.")
         else:
             print(f"🍖 {self.nome} está a roubar a comida do armazém...")
